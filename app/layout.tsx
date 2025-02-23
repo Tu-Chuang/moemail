@@ -83,7 +83,7 @@ export default function RootLayout({
       <body 
         className={cn(
           "min-h-screen antialiased",
-          "gradient-bg",
+          "bg-background text-foreground",
           "transition-colors duration-300"
         )}
       >
@@ -95,12 +95,7 @@ export default function RootLayout({
           storageKey="temp-mail-theme"
         >
           <Providers>
-            <main className="relative min-h-screen">
-              <div className="absolute inset-0 bg-grid-primary/5 backdrop-blur-[100px]" />
-              <div className="relative z-10">
-                {children}
-              </div>
-            </main>
+            {children}
           </Providers>
           <Toaster />
           <FloatMenu />
