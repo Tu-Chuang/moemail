@@ -154,74 +154,76 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
 
   return (
     <>
-      <div className="flex flex-col h-full">
-        <div className="p-2 flex justify-between items-center border-b border-primary/20">
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleRefresh}
-              disabled={refreshing}
-              className={cn("h-8 w-8", refreshing && "animate-spin")}
-            >
-              <RefreshCw className="h-4 w-4" />
-            </Button>
-            <span className="text-xs text-gray-500">
-              {total}/{EMAIL_CONFIG.MAX_ACTIVE_EMAILS} 个邮箱
-            </span>
+      <div className="glass-effect rounded-lg p-4 hover-float">
+        <div className="flex flex-col h-full">
+          <div className="p-2 flex justify-between items-center border-b border-primary/20">
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleRefresh}
+                disabled={refreshing}
+                className={cn("h-8 w-8", refreshing && "animate-spin")}
+              >
+                <RefreshCw className="h-4 w-4" />
+              </Button>
+              <span className="text-xs text-gray-500">
+                {total}/{EMAIL_CONFIG.MAX_ACTIVE_EMAILS} 个邮箱
+              </span>
+            </div>
+            <CreateDialog onEmailCreated={handleRefresh} />
           </div>
-          <CreateDialog onEmailCreated={handleRefresh} />
-        </div>
-        
-        <div className="flex-1 overflow-auto p-2" onScroll={handleScroll}>
-          {loading ? (
-            <div className="text-center text-sm text-gray-500">加载中...</div>
-          ) : emails.length > 0 ? (
-            <div className="space-y-1">
-              {emails.map(email => (
-                <div
-                  key={email.id}
-                  className={cn("flex items-center gap-2 p-2 rounded cursor-pointer text-sm group",
-                    "hover:bg-primary/5",
-                    selectedEmailId === email.id && "bg-primary/10"
-                  )}
-                  onClick={() => onEmailSelect(email)}
-                >
-                  <Mail className="h-4 w-4 text-primary/60" />
-                  <div className="truncate flex-1">
-                    <div className="font-medium truncate">{email.address}</div>
-                    <div className="text-xs text-gray-500">
-                      {new Date(email.expiresAt).getFullYear() === 9999 ? (
-                        "永久有效"
-                      ) : (
-                        `过期时间: ${new Date(email.expiresAt).toLocaleString()}`
-                      )}
-                    </div>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="opacity-0 group-hover:opacity-100 h-8 w-8"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      setEmailToDelete(email)
-                    }}
+          
+          <div className="flex-1 overflow-auto p-2" onScroll={handleScroll}>
+            {loading ? (
+              <div className="text-center text-sm text-gray-500">加载中...</div>
+            ) : emails.length > 0 ? (
+              <div className="space-y-1">
+                {emails.map(email => (
+                  <div
+                    key={email.id}
+                    className={cn("flex items-center gap-2 p-2 rounded cursor-pointer text-sm group",
+                      "hover:bg-primary/5",
+                      selectedEmailId === email.id && "bg-primary/10"
+                    )}
+                    onClick={() => onEmailSelect(email)}
                   >
-                    <Trash2 className="h-4 w-4 text-destructive" />
-                  </Button>
-                </div>
-              ))}
-              {loadingMore && (
-                <div className="text-center text-sm text-gray-500 py-2">
-                  加载更多...
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="text-center text-sm text-gray-500">
-              还没有邮箱，创建一个吧！
-            </div>
-          )}
+                    <Mail className="h-4 w-4 text-primary/60" />
+                    <div className="truncate flex-1">
+                      <div className="font-medium truncate">{email.address}</div>
+                      <div className="text-xs text-gray-500">
+                        {new Date(email.expiresAt).getFullYear() === 9999 ? (
+                          "永久有效"
+                        ) : (
+                          `过期时间: ${new Date(email.expiresAt).toLocaleString()}`
+                        )}
+                      </div>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="opacity-0 group-hover:opacity-100 h-8 w-8"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setEmailToDelete(email)
+                      }}
+                    >
+                      <Trash2 className="h-4 w-4 text-destructive" />
+                    </Button>
+                  </div>
+                ))}
+                {loadingMore && (
+                  <div className="text-center text-sm text-gray-500 py-2">
+                    加载更多...
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="text-center text-sm text-gray-500">
+                还没有邮箱，创建一个吧！
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
