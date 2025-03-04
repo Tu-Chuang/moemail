@@ -59,15 +59,8 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: [
-          '-apple-system',
-          'BlinkMacSystemFont',
-          'Segoe UI',
-          'Roboto',
-          'Helvetica Neue',
-          'Arial',
-          'sans-serif'
-        ],
+        sans: ['var(--font-zpix)'],
+        zpix: ['var(--font-zpix)'],
       },
       keyframes: {
         "accordion-down": {
